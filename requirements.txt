@@ -8,3 +8,7 @@ kagglehub
 umap-learn
 grad-cam
 jupyter
+streamlit
+Pillow
+requests
+
