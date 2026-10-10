@@ -31,6 +31,21 @@ Rather than stopping at a single accuracy number, the project builds a small end
 
 The goal is to demonstrate **model quality, failure analysis, robustness, interpretability, and engineering discipline**, rather than treating image classification as a single-metric exercise.
 
+## 🚀 Try the Model
+
+**Champion model:** EfficientNet-B0
+
+Download the trained checkpoint from the
+[GitHub v1.0.0 Release](https://github.com/Devang-555/military-vs-civilian-vehicle-intelligence/releases/tag/v1.0.0).
+
+- **Test Accuracy:** 94.11%
+- **Test Macro-F1:** 93.76%
+- **Classes:** 6
+- **Input Size:** 224 × 224
+
+See the notebook for the evaluation methodology, robustness tests,
+explainability analysis, and limitations.
+
 ---
 
 ## Key Results
