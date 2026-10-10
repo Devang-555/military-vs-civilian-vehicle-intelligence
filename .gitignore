@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+
+# Jupyter / Colab
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Trained model checkpoints
+*.pth
+*.pt
+*.onnx
+
+# Dataset / downloaded data
+data/
+datasets/
+kaggle/
+*.zip
+
+# Experiment outputs
+runs/
+wandb/
+mlruns/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.venv/
+venv/
+env/
+
+# Temporary files
+*.tmp
+*.log
