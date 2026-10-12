@@ -46,6 +46,57 @@ Download the trained checkpoint from the
 See the notebook for the evaluation methodology, robustness tests,
 explainability analysis, and limitations.
 
+## 🌐 Live Demo — V1.1
+
+**Try the deployed application:**  
+https://military-civilian-vehicle-intelligence.streamlit.app
+
+The Streamlit application uses the trained EfficientNet-B0 checkpoint to classify uploaded images into six vehicle categories.
+
+### Application features
+
+- Six-class vehicle image classification
+- Prediction confidence and Top-3 predictions
+- Derived military-versus-civilian probability breakdown
+- Grad-CAM visual explanations
+- Image-upload error handling
+- Responsible-use and model-limitation information
+
+### Deployment validation
+
+The deployed application was manually tested using six selected vehicle images. All six received the expected class labels.
+
+| Test image | Expected/predicted class | Observed confidence |
+|---|---|---:|
+| T-34 tank | Military Tank | 99.99% |
+| Mi-17 helicopter | Military Helicopter | 99.97% |
+| Military truck | Military Truck | 97.38% |
+| GT31 racing car | Civilian Car | 99.71% |
+| Military aircraft formation | Military Aircraft | 99.99% |
+| BAe Hawk aircraft | Military Aircraft | 97.73% |
+
+These are qualitative deployment sanity checks, not a formal accuracy evaluation. The model's benchmark performance is reported separately using the held-out dataset test set.
+
+### Qualitative out-of-distribution (OOD) observations
+
+Three additional images outside the model's six training classes were used to explore its closed-set limitation.
+
+| Unseen object | Model prediction | Observed confidence |
+|---|---|---:|
+| Space Shuttle | Civilian Aircraft | 51.10% |
+| Mars rover | Military Truck | 94.26% |
+| Hang glider | Military Aircraft | 58.96% |
+
+The model has no explicit "Unknown / Not a Vehicle" output. It therefore assigns unseen objects to one of its six known classes, sometimes with high confidence.
+
+These three examples are exploratory observations, not a formal OOD benchmark. They demonstrate why softmax confidence should not be treated as proof that an input belongs to a known class.
+
+### Grad-CAM observations
+
+Grad-CAM visualizations were generated in the deployed application. During the qualitative checks, highlighted regions included parts of the tank, helicopter, Space Shuttle, Mars rover, and hang glider.
+
+Grad-CAM indicates image regions influencing a prediction; it does not prove that the model understands the object or that its prediction is correct.
+
 ---
 
 ## Key Results
@@ -574,13 +625,13 @@ Checkpoint metadata includes:
 
 The checkpoint was also backed up to Google Drive.
 
-The model checkpoint is intentionally kept separate from the main source repository until a suitable release/storage strategy is finalized.
+The trained checkpoint is published as a downloadable asset in the GitHub v1.0.0 release and is downloaded by the deployed Streamlit app at runtime.
 
 ---
 
 # Repository Structure
 
-The repository is being organized toward:
+The repository contains the completed research notebook, evaluation results, and the deployed Streamlit application.
 
 ```text
 military-vs-civilian-vehicle-intelligence/
@@ -593,27 +644,11 @@ military-vs-civilian-vehicle-intelligence/
 ├── notebooks/
 │   └── Military_Vehicle_Intelligence.ipynb
 │
-├── src/
-│   ├── data.py
-│   ├── model.py
-│   ├── inference.py
-│   ├── robustness.py
-│   └── explainability.py
-│
 ├── results/
-│   ├── model_comparison/
-│   ├── robustness/
-│   ├── explainability/
-│   └── embeddings/
-│
-├── models/
-│   └── README.md
-│
-└── docs/
-    └── methodology.md
+├── app.py
 ```
 
-The current repository is being built incrementally from the completed Colab research notebook.
+The research notebook contains training and evaluation experiments. `app.py` provides the deployed Streamlit inference interface, and the trained checkpoint is hosted in the GitHub v1.0.0 release.
 
 ---
 
@@ -647,8 +682,6 @@ Potential extensions include:
 - Class-balanced training experiments
 - ONNX export and deployment benchmarking
 - Lightweight inference optimization
-- Interactive image-upload demo
-- AI vehicle classification dashboard
 - Embedding explorer UI
 - Automated model evaluation report
 - Model versioning and release management
